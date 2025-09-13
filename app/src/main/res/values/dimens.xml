@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normalCardElevation">20dp</dimen>
+    <dimen name="normalCardContentPadding">10dp</dimen>
+    <dimen name="normalCardCornerRadius">5dp</dimen>
+</resources>

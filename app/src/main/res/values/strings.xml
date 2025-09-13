@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NoteBook</string>
+    <string name="navDrClose">Close</string>
+    <string name="navDrOpen">Open</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Notes">Notes</string>
+    <string name="Do_you_want_to_delete">Do you want to delete</string>
+    <string name="Yes">Yes</string>
+</resources>
