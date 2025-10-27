@@ -97,12 +97,12 @@ public class NotesFrag extends Fragment {
                 cataNameTxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new EdttxtSubbtnDialog(getContext(), cataAl.get(position).get("id"), "cataTbl", cataNameTxt);// {
-//                            @Override
-//                            void doAfterSubbtnClicked() {
-//                                cataNameTxt.setText(ed.getText().toString());
-//                            }
-//                        };
+                        new EdttxtSubbtnDialog(getContext(), cataAl.get(position).get("id"), "cataTbl", cataNameTxt) {
+                            @Override
+                            void doAfterSubbtnClicked() {
+                                cataNameTxt.setText(ed.getText().toString());
+                            }
+                        };
                     }
                 });
                 EditText contEdt = ((EditText) holder.viewHm.get("contEdt"));
@@ -167,12 +167,13 @@ public class NotesFrag extends Fragment {
                 contTxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new EdttxtSubbtnDialog(getContext(), contAl.get(position).get("id"), "contTbl", contTxt) ;//{
-//                            @Override
-//                            void doAfterSubbtnClicked() {
-//                                contTxt.setText(ed.getText().toString());
-//                            }
-//                        };
+                        new EdttxtSubbtnDialog(getContext(), contAl.get(position).get("id"), "contTbl", contTxt) {
+                            @Override
+                            void doAfterSubbtnClicked() {
+                                contAl.get(position).put(contAl.get(position).get("id"), ed.getText().toString());
+                                contTxt.setText(ed.getText().toString());
+                            }
+                        };
                     }
                 });
                 ImageView delBtn = ((ImageView) holder.viewHm.get("delBtn"));

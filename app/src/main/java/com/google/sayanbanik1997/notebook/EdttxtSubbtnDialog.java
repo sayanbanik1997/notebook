@@ -14,7 +14,7 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 
-public  class EdttxtSubbtnDialog {
+public abstract class EdttxtSubbtnDialog {
     Context context;
     //TextView idTxt;
     EditText ed;
@@ -40,8 +40,8 @@ public  class EdttxtSubbtnDialog {
             @Override
             public void onClick(View view) {
                 if(dbHelper.upd(tblName, new String[]{ed.getText().toString()}, "id=?", new String[]{id})>0) {
-                    //doAfterSubbtnClicked();
-                    tv.setText(ed.getText().toString());
+                    doAfterSubbtnClicked();
+                    //tv.setText(ed.getText().toString());
                 }else{
                     Toast.makeText(context, "Error while updating", Toast.LENGTH_SHORT).show();
                 }
@@ -49,6 +49,6 @@ public  class EdttxtSubbtnDialog {
             }
         });
     }
-    //abstract  void doAfterSubbtnClicked();
+    abstract  void doAfterSubbtnClicked();
     
 }
