@@ -18,11 +18,10 @@ public abstract class EdttxtSubbtnDialog {
     Context context;
     //TextView idTxt;
     EditText ed;
-    RecyclerView review;
+    //RecyclerView review;
     Button submitBtn;
-    String id;
     DbHelper dbHelper;
-    EdttxtSubbtnDialog(Context context, String id, String tblName, TextView tv){
+    EdttxtSubbtnDialog(Context context, String cont){
         this.context=context;
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.edttxt_subbtn_lut);
@@ -34,17 +33,12 @@ public abstract class EdttxtSubbtnDialog {
         ed = dialog.findViewById(R.id.ed);
         submitBtn =dialog.findViewById(R.id.subBtn);
 
-        ed.setText(tv.getText().toString());
+        ed.setText(cont);
        
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(dbHelper.upd(tblName, new String[]{ed.getText().toString()}, "id=?", new String[]{id})>0) {
-                    doAfterSubbtnClicked();
-                    //tv.setText(ed.getText().toString());
-                }else{
-                    Toast.makeText(context, "Error while updating", Toast.LENGTH_SHORT).show();
-                }
+                doAfterSubbtnClicked();
                 dialog.dismiss();
             }
         });

@@ -97,17 +97,42 @@ public class NotesFrag extends Fragment {
                 cataNameTxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new EdttxtSubbtnDialog(getContext(), cataAl.get(position).get("id"), "cataTbl", cataNameTxt) {
+                        new EdttxtSubbtnDialog(getContext(), cataNameTxt.getText().toString()) {
                             @Override
                             void doAfterSubbtnClicked() {
-                                cataNameTxt.setText(ed.getText().toString());
+                                if(dbHelper.upd("cataTbl", new String[]{ed.getText().toString()}, "id=?", new String[]{ cataAl.get(position).get("id")})>0) {
+                                    cataNameTxt.setText(ed.getText().toString());
+                                }else{
+                                    Toast.makeText(context, "Error while updating", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         };
                     }
                 });
-                EditText contEdt = ((EditText) holder.viewHm.get("contEdt"));
+                
                 RecyclerView contReview = ((RecyclerView) holder.viewHm.get("contReview"));
                 contReview.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                EditText contEdt = ((EditText) holder.viewHm.get("contEdt"));
+                contEdt.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        //Toast.makeText(getContext(), "enter", Toast.LENGTH_SHORT).show();
+                        ArrayList<HashMap<String, String>> contAl = dbHelper.rawQry("select * from `contTbl` where cont like '%"+ contEdt.getText().toString() +"%' and cataId = "+cataAl.get(position).get("id").toString(),"contTbl");
+                        setDataToContReview(contReview, contAl, cataAl.get(position).get("id").toString());
+                    }
+                });
 
                 ((Button) holder.viewHm.get("subBtn")).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -167,11 +192,16 @@ public class NotesFrag extends Fragment {
                 contTxt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new EdttxtSubbtnDialog(getContext(), contAl.get(position).get("id"), "contTbl", contTxt) {
+                        new EdttxtSubbtnDialog(getContext(), contTxt.getText().toString()) {
                             @Override
                             void doAfterSubbtnClicked() {
-                                contAl.get(position).put(contAl.get(position).get("id"), ed.getText().toString());
-                                contTxt.setText(ed.getText().toString());
+                                if(dbHelper.upd("contTbl", new String[]{ed.getText().toString()}, "id=?", new String[]{ contAl.get(position).get("id")})>0) {
+                                    contAl.get(position).put("cont", ed.getText().toString());
+                                    setDataToContReview(review, contAl, cataId);
+                                }else{
+                                    Toast.makeText(context, "Error while updating", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         };
                     }
